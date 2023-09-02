@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>CommandLine Argument Parser</Title>
+		<PackageProjectUrl>https://github.com/matthias-p-nowak/CmdLineArgs</PackageProjectUrl>
+		<VersionPrefix>1.0.1</VersionPrefix>
+		<PackageId>Matthias77.$(AssemblyName)</PackageId>
+		<PackageLicenseFile>License.md</PackageLicenseFile>
+		<Description>Simple attribute based command line option parser.</Description>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/matthias-p-nowak/CmdLineArgs.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>GetOpt;Args;Parser</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Update="License.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="Readme.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+</Project>
