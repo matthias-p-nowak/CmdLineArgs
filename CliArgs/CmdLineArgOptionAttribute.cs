@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CliArgs
+namespace Matthias77.CliArgs
 {
     /// <summary>
     /// Denotes a field/property that can be filled with a value from the command line
