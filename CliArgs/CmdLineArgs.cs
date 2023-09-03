@@ -7,7 +7,7 @@ namespace Matthias77.CliArgs
 {
     public class CmdLineArgs
     {
-        public static List<string> Parse(object target, string[] args, bool debug)
+        public static List<string> Parse(object target, string[] args, bool debug=false)
         {
             if (args.Length == 1)
             {
