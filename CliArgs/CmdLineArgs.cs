@@ -5,9 +5,19 @@ using System.Reflection;
 
 namespace Matthias77.CliArgs
 {
+    /// <summary>
+    /// CmdLineArgs contains the Parser and Help print.
+    /// </summary>
     public class CmdLineArgs
     {
-        public static List<string> Parse(object target, string[] args, bool debug=false)
+        /// <summary>
+        /// Parses the commandline and fills in field and property values
+        /// </summary>
+        /// <param name="target">The annotated object to fill with values</param>
+        /// <param name="args">Command line arguments</param>
+        /// <param name="debug">If true, all assignments are logged.</param>
+        /// <returns></returns>
+        public static List<string> Parse(object target, string[] args, bool debug = false)
         {
             if (args.Length == 1)
             {
@@ -76,7 +86,10 @@ namespace Matthias77.CliArgs
                             Console.Error.WriteLine($"missing argument for {attr.Option}");
                             Environment.Exit(-1);
                         }
-                        Console.WriteLine($"dealing with {field.Name} <- {argsList[idx]}");
+                        if (debug)
+                        {
+                            Console.WriteLine($"dealing with {field.Name} <- {argsList[idx]}");
+                        }
                         string value = argsList[idx];
                         argsList.RemoveAt(idx);
                         if (field.FieldType == typeof(string))
@@ -242,6 +255,10 @@ namespace Matthias77.CliArgs
             return argsList;
         }
 
+        /// <summary>
+        /// Prints the available options
+        /// </summary>
+        /// <param name="target">the object with the annotated fields/properties</param>
         public static void PrintHelp(object target)
         {
             var targetType = target.GetType();
