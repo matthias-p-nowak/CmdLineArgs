@@ -25,3 +25,4 @@ Field type | Condition | Action
 `Integer` | Increase=true | increments the value
 `String` | | assigns the next argument
 `List<String>` | | appends the next argument to the list
+`List<int>` | | arguments might be comma-separated list of single numbers or ranges	`<lower end>-<upper end>`, all numbers are added to the list
