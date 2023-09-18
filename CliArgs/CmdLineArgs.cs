@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Matthias77.CliArgs
 {
@@ -10,6 +12,7 @@ namespace Matthias77.CliArgs
     /// </summary>
     public class CmdLineArgs
     {
+        private static Regex intListRegEx = new Regex(@"((?<le>\d+)-(?<ue>\d+))|(?<sn>\d+)");
         /// <summary>
         /// Parses the commandline and fills in field and property values
         /// </summary>
@@ -124,7 +127,6 @@ namespace Matthias77.CliArgs
                             if (obj is List<string> listVal)
                             {
                                 listVal.Add(value);
-                                field.SetValue(target, listVal);
                                 if (debug)
                                 {
                                     Console.WriteLine($"'{attr.Option}' -> {field.Name}+='{value}'");
@@ -136,6 +138,70 @@ namespace Matthias77.CliArgs
                                 Environment.Exit(-1);
                             }
                             continue;
+                        }
+                        else if (field.FieldType == typeof(List<int>))
+                        {
+                            var obj=field.GetValue(target);
+                            if(obj is List<int> listVal)
+                            {
+                                var matches= intListRegEx.Matches(value);
+                                if(matches.Count > 0)
+                                {
+                                    foreach(Match match in matches)
+                                    {
+                                        Group sng =match.Groups["sn"];
+                                        if (sng.Captures.Count > 0)
+                                        {
+                                            int val = int.Parse(sng.Value);
+                                            listVal.Add(val);
+                                            if (debug)
+                                            {
+                                                Console.WriteLine($"'{attr.Option}' -> {field.Name}+='{sng.Value}'");
+                                            }
+                                            continue;
+                                        }
+                                        Group le = match.Groups["le"];
+                                        if(le.Captures.Count > 0)
+                                        {
+                                            int leVal=int.Parse(le.Value);
+                                            Group ue = match.Groups["ue"];
+                                            if(ue.Captures.Count > 0)
+                                            {
+                                                int ueVal=int.Parse(ue.Value);
+                                                if(leVal< ueVal)
+                                                {
+                                                    for(int i=leVal;i<=ueVal;++i)
+                                                        listVal.Add(i);
+                                                    if (debug)
+                                                    {
+                                                        Console.WriteLine($"'{attr.Option}' -> {field.Name}+='{le.Value}..{ue.Value}'");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Console.Error.WriteLine($"order required {le.Value}<{ue.Value}");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Console.Error.WriteLine("missing upper end");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.Error.WriteLine("missing lower end");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Console.Error.WriteLine($"{value} did not match <number> nor <number>-<number>");
+                                }
+                            }else
+                            {
+                                Console.Error.WriteLine($"Runtime error: is {field.Name} initialized?");
+                                Environment.Exit(-1);
+                            }
                         }
                         else
                         {

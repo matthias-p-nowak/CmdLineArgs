@@ -5,7 +5,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>CommandLine Argument Parser</Title>
 		<PackageProjectUrl>https://github.com/matthias-p-nowak/CmdLineArgs</PackageProjectUrl>
-		<VersionPrefix>1.0.7</VersionPrefix>
+		<VersionPrefix>1.0.8</VersionPrefix>
 		<PackageId>Matthias77.$(AssemblyName)</PackageId>
 		<PackageLicenseFile>License.md</PackageLicenseFile>
 		<Description>Simple attribute based command line option parser.</Description>

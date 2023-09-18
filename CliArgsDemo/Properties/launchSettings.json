@@ -2,7 +2,7 @@
   "profiles": {
     "CliArgsDemo": {
       "commandName": "Project",
-      "commandLineArgs": "-dest hello -f fuck -p ok -p wrong -help -v -v -v -t -vv 128\r\n"
+      "commandLineArgs": "-dest hello -f fuck -p ok -p wrong -help -v -v -v -t -vv 128\r\n-il 4,5-9,11"
     }
   }
 }

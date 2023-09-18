@@ -18,6 +18,10 @@ namespace CliArgs
         [CmdLineArgOption("-p", "all the pees")]
         public List<string> Peas = new List<string>();
 
+        [CmdLineArgOption("-il","all the integers")]
+        public List<int> allInts=new List<int>();
+
+
         public MainClass()
         {
 
